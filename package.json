@@ -1,0 +1,31 @@
+{
+  "name": "busservo_backend",
+  "version": "1.0.0",
+  "description": "backend for BusServo app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phyerwaal-dev/A10-Phyerwaal-Devs.git"
+  },
+  "author": "Phyerwaal Dev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/phyerwaal-dev/A10-Phyerwaal-Devs/issues"
+  },
+  "homepage": "https://github.com/phyerwaal-dev/A10-Phyerwaal-Devs#readme",
+  "dependencies": {
+    "accesscontrol": "^2.2.1",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "config": "^3.3.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.4.17",
+    "pg-promise": "^10.9.2"
+  }
+}

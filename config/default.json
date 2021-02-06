@@ -1,0 +1,14 @@
+{
+  "jwtPrivateKey": "jwtPrivateKey",
+  "mongoURI": "",
+  "pgURL": "localhost",
+  "pgPort": "5432",
+  "pgDb": "jobbster",
+  "pgUser": "postgres",
+  "pgPassword": "root",
+  "PORT": "5000",
+  "s3Key": "ASIARHZY7VSRHRCOC42H",
+  "s3Secret": "zEd7emTdRcM3A2g/QCDxS1HpnVMm4/97t+0gErJH",
+  "s3Bucket": "job-portal-storage",
+  "s3Region": "us-east-1"
+}
