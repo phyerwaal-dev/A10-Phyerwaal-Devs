@@ -1,11 +1,12 @@
 const express = require("express");
 const app = express();
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 const logger = require("morgan");
 const error = require("./middlewares/error");
 const cors = require("cors");
 const config = require("config");
 const auth = require("./middlewares/auth");
+
 const userAuth = require("./routes/api/user/auth");
 const conductorAuth = require("./routes/api/conductor/auth");
 
@@ -22,10 +23,9 @@ app.get("/", (req, res) =>
     message: "Health check successful",
   })
 );
+app.use("/api/v1/user/auth", userAuth);
+app.use("/api/v1/conductor/auth", conductorAuth);
 
-app.use("/api/v1/user/auth/", userAuth);
-
-app.use("/api/v1/conductor/auth/", conductorAuth);
 // error response middleware
 app.use(error);
 
