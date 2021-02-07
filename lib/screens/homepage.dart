@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:busapp/screens/buslist.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -17,7 +18,6 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     super.initState();
     locationPermissionCheck();
-    // getLocation();
   }
 
   void locationPermissionCheck() async {
@@ -78,14 +78,67 @@ class _HomepageState extends State<Homepage> {
                   height: 20,
                 ),
                 Container(
-                    height: size.height * 0.5,
+                  height: size.height * 0.48,
+                  width: size.width,
+                  color: Colors.redAccent,
+                ),
+                SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => BusList(),
+                    ));
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 50,
                     width: size.width,
-                    color: Colors.redAccent,
-                   )
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.black,
+                    ),
+                    child: Text(
+                      "View Bus",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "Rubik"),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
+        currentIndex: 0, // this will be set when a new tab is tapped
+        selectedItemColor: Colors.black,
+        items: [
+          BottomNavigationBarItem(
+            icon: new Icon(
+              Icons.bus_alert,
+              size: 32,
+            ),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(
+              Icons.home,
+              size: 32,
+            ),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.lock_clock,
+              size: 32,
+            ),
+            label: "",
+          )
+        ],
       ),
     );
   }
