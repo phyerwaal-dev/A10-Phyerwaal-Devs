@@ -1,4 +1,3 @@
-import 'package:busapp/screens/homepage.dart';
 import 'package:busapp/screens/login.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +17,7 @@ class SplashScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "App Name",
+                  "Servo Bus",
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 32,

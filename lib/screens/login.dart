@@ -1,6 +1,7 @@
 import 'package:busapp/screens/forgetpass.dart';
 import 'package:busapp/screens/homepage.dart';
 import 'package:busapp/screens/register.dart';
+import 'package:busapp/service/http.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,6 +11,34 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isObscure = true;
+  String errorMsg = "";
+  TextEditingController _email = new TextEditingController();
+  TextEditingController _password = new TextEditingController();
+
+  validate() async {
+    var email = _email.text;
+    bool _isEmailValid = RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(email);
+    var password = _password.text;
+
+    if (password.length != 0 && _isEmailValid) {
+      login(email, password);
+    } else {
+      setState(() {
+        errorMsg = "Please check Email and Password!";
+      });
+      print(errorMsg);
+    }
+  }
+
+  login(String email, String password) async {
+    var data = {"email": email.toString(), "password": password.toString()};
+    print(data);
+    var result = await httpPost("api/v1/user/auth/signin", data);
+    print(result);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -40,6 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextFormField(
+                      controller: _email,
                       decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.email,
@@ -57,6 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: 20,
                   ),
                   TextFormField(
+                      controller: _password,
                       obscureText: _isObscure,
                       decoration: InputDecoration(
                           prefixIcon: Icon(
@@ -112,6 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => Homepage(),
                       ));
+                      // validate();
                     },
                     child: Container(
                       alignment: Alignment.center,
