@@ -9,15 +9,19 @@ const generateToken = require("../../../middlewares/token").generateToken;
 router.post("/signin", async (req, res, next) => {
   try {
     const query =
-      "select conductor_id,password from conductor where conductor_id=${conductor_id} and password=${password}";
+      "select conductor_id,password from conductor where conductor_id=${conductor_id}";
     let result = await pdb.any(query, {
       conductor_id: req.body.conductor_id,
-      password: req.body.password,
     });
     if (result.length === 0) {
       throw {
         statusCode: 404,
-        customMessage: "Conductor id or password is wrong",
+        customMessage: "No conductor_id found",
+      };
+    } else if (!bcrypt.compareSync(req.body.password, result[0].password)) {
+      throw {
+        statusCode: 404,
+        customMessage: "Invalid conductor_id and password",
       };
     } else {
       let data = result[0];
@@ -32,7 +36,6 @@ router.post("/signin", async (req, res, next) => {
       });
     }
   } catch (err) {
-    console.log(err);
     next(err);
   }
 });

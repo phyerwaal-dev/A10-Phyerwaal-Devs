@@ -8,7 +8,9 @@ const config = require("config");
 const auth = require("./middlewares/auth");
 
 const userAuth = require("./routes/api/user/auth");
+const userBus = require("./routes/api/user/bus");
 const conductorAuth = require("./routes/api/conductor/auth");
+const conductorTicket = require("./routes/api/conductor/ticket");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -24,7 +26,9 @@ app.get("/", (req, res) =>
   })
 );
 app.use("/api/v1/user/auth", userAuth);
+app.use("/api/v1/user/bus", userBus);
 app.use("/api/v1/conductor/auth", conductorAuth);
+app.use("/api/v1/conductor/ticket", conductorTicket);
 
 // error response middleware
 app.use(error);

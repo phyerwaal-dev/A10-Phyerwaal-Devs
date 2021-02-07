@@ -27,7 +27,7 @@ router.post("/signin", async (req, res, next) => {
     } else {
       let data = result[0];
       delete data.password;
-      data["role"] = "seeker";
+      data["role"] = "user";
       const token = generateToken({
         ...data,
       });

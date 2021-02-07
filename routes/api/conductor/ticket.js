@@ -57,11 +57,13 @@ router.post("/verify", async (req, res, next) => {
             verified: true,
             ticket_no: req.body.ticket_no,
           });
+          query = "update vehicle set passenger_count=passenger_count + 1 ";
+          await pdb.any(query);
         }
       }
       res.status(200).json({
         status: 200,
-        customMessage: "ticket updated successfully",
+        customMessage: "ticket updated/added successfully",
       });
     }
   } catch (err) {
