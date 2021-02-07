@@ -6,12 +6,35 @@ const bcrypt = require("bcrypt");
 //  get bus details
 router.get("/buses", async (req, res, next) => {
   try {
+    var S_loc;
+    var D_loc;
+    var sloc = req.params.start_loc;
+    sloc = sloc.toLowerCase();
+    var dloc = req.params.dest_loc;
+    dloc = dloc.toLowerCase();
+    const query3 =
+      "SELECT stop_id from bus_stop where stop_name=${stop_id1} or stop_name=${stop_id2}";
+
+    let result4 = await pdb.any(query3, {
+      stop_id1: sloc,
+      stop_id2: dloc,
+    });
+    if (result4.length === 0) {
+      throw {
+        statusCode: 404,
+        customMessage: "No such bus stop",
+      };
+    } else {
+      S_loc = result4[0].stop_id;
+      D_loc = result4[1].stop_id;
+    }
+
     const query =
       "SELECT bus_no,start_loc,dest_loc from bus where ${start_l} and ${dest_l} = ANY(route)";
 
     let result = await pdb.any(query, {
-      start_l: req.params.start_loc,
-      dest_l: req.params.dest_loc,
+      start_l: S_loc,
+      dest_l: D_loc,
     });
     if (result.length === 0) {
       throw {
