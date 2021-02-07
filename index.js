@@ -28,7 +28,7 @@ app.get("/", (req, res) =>
 );
 app.use("/api/v1/user/auth", userAuth);
 app.use("/api/v1/user/bus", userBus);
-app.use("/api/v1/user/ticket", userTicket);
+app.use("/api/v1/user/ticket", auth, userTicket);
 app.use("/api/v1/conductor/auth", conductorAuth);
 app.use("/api/v1/conductor/ticket", conductorTicket);
 
@@ -38,7 +38,7 @@ app.use(error);
 // node server port
 const port = config.get("PORT");
 
-app.listen(port, () =>
+app.listen(process., () =>
   console.log(`Server is listening at http://localhost:${port}`)
 );
 
