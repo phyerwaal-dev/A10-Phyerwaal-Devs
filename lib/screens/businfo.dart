@@ -6,37 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
-class Homepage extends StatefulWidget {
+class BusInfo extends StatefulWidget {
   @override
-  _HomepageState createState() => _HomepageState();
+  _BusInfoState createState() => _BusInfoState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _BusInfoState extends State<BusInfo> {
   double positionLat, positionLong;
   LatLng _center;
   @override
-  void initState() {
-    super.initState();
-    locationPermissionCheck();
-  }
-
-  void locationPermissionCheck() async {
-    if (!kIsWeb) {
-      final location = Location();
-      final hasPermissions = await location.hasPermission();
-      if (hasPermissions != PermissionStatus.granted) {
-        await location.requestPermission();
-      }
-      final position = await location.getLocation();
-      positionLat = position.latitude;
-      positionLong = position.longitude;
-      _center = new LatLng(positionLat, positionLong);
-      print("Lat: " +
-          positionLat.toString() +
-          "Long: " +
-          positionLong.toString());
-    }
-  }
 
   Completer<GoogleMapController> _controller = Completer();
   MapType _currentMapType = MapType.normal;
@@ -54,7 +32,7 @@ class _HomepageState extends State<Homepage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "App Name",
+                  "Bus Info",
                   style: TextStyle(
                       color: Color(0xFF070417),
                       fontSize: 32,
@@ -65,24 +43,20 @@ class _HomepageState extends State<Homepage> {
                 LocationCard(
                   size: size,
                   leadingIcon: Icons.location_on,
-                  text: "Start Location",
+                  text: "Location",
                   iconBgColor: Colors.purple,
                 ),
 
                 LocationCard(
                   size: size,
                   leadingIcon: Icons.location_pin,
-                  text: "Destination Location",
+                  text: "Passenger Count",
                   iconBgColor: Colors.orangeAccent,
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                  height: size.height * 0.48,
-                  width: size.width,
-                  color: Colors.redAccent,
-                ),
+
                 SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
