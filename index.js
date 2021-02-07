@@ -38,7 +38,7 @@ app.use(error);
 // node server port
 const port = config.get("PORT");
 
-app.listen(process., () =>
+app.listen(process.env.PORT, () =>
   console.log(`Server is listening at http://localhost:${port}`)
 );
 
