@@ -1,14 +1,9 @@
 {
   "jwtPrivateKey": "jwtPrivateKey",
-  "mongoURI": "",
-  "pgURL": "localhost",
+  "pgURL": "ec2-52-205-3-3.compute-1.amazonaws.com",
   "pgPort": "5432",
-  "pgDb": "jobbster",
-  "pgUser": "postgres",
-  "pgPassword": "root",
-  "PORT": "5000",
-  "s3Key": "ASIARHZY7VSRHRCOC42H",
-  "s3Secret": "zEd7emTdRcM3A2g/QCDxS1HpnVMm4/97t+0gErJH",
-  "s3Bucket": "job-portal-storage",
-  "s3Region": "us-east-1"
+  "pgDb": "d34v6ceb8cc45i",
+  "pgUser": "pwlhwupxyueoix",
+  "pgPassword": "704bf05412037d3781686fb8811575342ce5ab0923e137a28cc3159ac7e37cdb",
+  "PORT": "5000"
 }
