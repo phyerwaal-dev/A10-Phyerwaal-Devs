@@ -11,7 +11,7 @@ router.post("/signin", async (req, res, next) => {
     const query =
       "select conductor_id,password from conductor where conductor_id=${conductor_id}";
     let result = await pdb.any(query, {
-      conductor_id: req.body.conductor_id,
+      conductor_id: req.body.email,
     });
     if (result.length === 0) {
       throw {

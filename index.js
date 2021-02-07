@@ -40,6 +40,7 @@ app.use(error);
 // node server port
 const port = config.get("PORT");
 
+<<<<<<< HEAD
 io.on("connection", (socket) => {
   console.log("connect");
 });
@@ -53,6 +54,11 @@ io.on("connection", (socket) => {
     console.log("location", msg);
   });
 });
+=======
+app.listen(process.env.PORT, () =>
+  console.log(`Server is listening at http://localhost:${port}`)
+);
+>>>>>>> 010d7c383ee7c83fb19665acc41ea6e117e7521f
 
 process.on("SIGINT", () => {
   console.log("App terminated!! Mongo connection closed");
