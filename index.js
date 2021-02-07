@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const server = require("http").createServer(app);
+const io = require("socket.io")(server);
 // const bodyParser = require("body-parser");
 const logger = require("morgan");
 const error = require("./middlewares/error");
@@ -38,9 +40,19 @@ app.use(error);
 // node server port
 const port = config.get("PORT");
 
-app.listen(process.env.PORT, () =>
-  console.log(`Server is listening at http://localhost:${port}`)
-);
+io.on("connection", (socket) => {
+  console.log("connect");
+});
+
+server.listen(port, () => {
+  console.log(`Server is listening at http://localhost:${port}`);
+});
+io.on("connection", (socket) => {
+  console.log("connect");
+  socket.on("loc", (msg) => {
+    console.log("location", msg);
+  });
+});
 
 process.on("SIGINT", () => {
   console.log("App terminated!! Mongo connection closed");
