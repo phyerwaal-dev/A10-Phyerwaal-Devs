@@ -206,7 +206,7 @@ class LocationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        showDialog(context: context, builder: (BuildContext context))
+        // showDialog(context: context, builder: (BuildContext context))
       },
       child: Container(
         height: 100,
