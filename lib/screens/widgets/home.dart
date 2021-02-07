@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:busapp/data/loc.dart';
 import 'package:busapp/screens/buslist.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,8 @@ class _HomeState extends State<Home> {
   LatLng _center, lastKnownPosition;
   bool _loading = true;
   final Set<Marker> _markers = {};
+  String startLoc = "";
+  String endLoc = "";
 
   @override
   void initState() {
@@ -115,17 +118,182 @@ class _HomeState extends State<Home> {
                     fontFamily: "Rubik"),
               ),
               SizedBox(height: 20),
-              LocationCard(
-                size: size,
-                leadingIcon: Icons.location_on,
-                text: "Start Location",
-                iconBgColor: Colors.purple,
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: new Text("Select Start Location"),
+                          content: Container(
+                            width: size.width * 0.8,
+                            height: size.height * 0.35,
+                            child: ListView.builder(
+                                itemCount: loc.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      print(loc[index]);
+                                      setState(() {
+                                        startLoc = loc[index];
+                                      });
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Container(
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            loc[index],
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.normal,
+                                                fontFamily: "Rubik",
+                                                fontSize: 22),
+                                          ),
+                                          Divider()
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }),
+                          ),
+                          actions: <Widget>[
+                            // usually buttons at the bottom of the dialog
+                            new FlatButton(
+                              child: new Text("Close"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      });
+                },
+                child: Container(
+                  height: 100,
+                  width: size.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.purple,
+                        ),
+                        child: Icon(Icons.location_on, color: Colors.white),
+                      ),
+                      SizedBox(width: 20),
+                      Container(
+                        width: size.width * 0.5,
+                        child: Text(
+                            startLoc == "" ? "Start Location" : startLoc,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "Rubik")),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 24,
+                        color: Colors.black,
+                      )
+                    ],
+                  ),
+                ),
               ),
-              LocationCard(
-                size: size,
-                leadingIcon: Icons.location_pin,
-                text: "Destination Location",
-                iconBgColor: Colors.orangeAccent,
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: new Text("Select End Location"),
+                          content: Container(
+                            width: size.width * 0.8,
+                            height: size.height * 0.35,
+                            child: ListView.builder(
+                                itemCount: dloc.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      print(dloc[index]);
+                                      setState(() {
+                                        endLoc = loc[index];
+                                      });
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Container(
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            dloc[index],
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.normal,
+                                                fontFamily: "Rubik",
+                                                fontSize: 22),
+                                          ),
+                                          Divider()
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }),
+                          ),
+                          actions: <Widget>[
+                            // usually buttons at the bottom of the dialog
+                            new FlatButton(
+                              child: new Text("Close"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      });
+                },
+                child: Container(
+                  height: 100,
+                  width: size.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.orangeAccent,
+                        ),
+                        child: Icon(Icons.location_on, color: Colors.white),
+                      ),
+                      SizedBox(width: 20),
+                      Container(
+                        width: size.width * 0.5,
+                        child: Text(endLoc == "" ? "Start Location" : endLoc,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "Rubik")),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 24,
+                        color: Colors.black,
+                      )
+                    ],
+                  ),
+                ),
               ),
               SizedBox(
                 height: 20,
@@ -188,7 +356,7 @@ AlertDialog alert = AlertDialog(
 //   showDialog(context: context, builder: (BuildContext context))
 // }
 
-class LocationCard extends StatelessWidget {
+class LocationCard extends StatefulWidget {
   const LocationCard({
     Key key,
     @required this.size,
@@ -203,14 +371,66 @@ class LocationCard extends StatelessWidget {
   final Color iconBgColor;
 
   @override
+  _LocationCardState createState() => _LocationCardState();
+}
+
+class _LocationCardState extends State<LocationCard> {
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // showDialog(context: context, builder: (BuildContext context))
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: new Text("Select Start Location"),
+                content: Container(
+                  width: widget.size.width * 0.8,
+                  height: widget.size.height * 0.35,
+                  child: ListView.builder(
+                      itemCount: loc.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            print(loc[index]);
+                            // setState(() {
+                            //   var startLoc = ""
+                            // });
+                            Navigator.of(context).pop();
+                          },
+                          child: Container(
+                            child: Column(
+                              children: [
+                                Text(
+                                  loc[index],
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.normal,
+                                      fontFamily: "Rubik",
+                                      fontSize: 22),
+                                ),
+                                Divider()
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                ),
+                actions: <Widget>[
+                  // usually buttons at the bottom of the dialog
+                  new FlatButton(
+                    child: new Text("Close"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            });
       },
       child: Container(
         height: 100,
-        width: size.width,
+        width: widget.size.width,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -219,14 +439,14 @@ class LocationCard extends StatelessWidget {
               width: 60,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: iconBgColor,
+                color: widget.iconBgColor,
               ),
-              child: Icon(leadingIcon, color: Colors.white),
+              child: Icon(widget.leadingIcon, color: Colors.white),
             ),
             SizedBox(width: 20),
             Container(
-              width: size.width * 0.5,
-              child: Text(text,
+              width: widget.size.width * 0.5,
+              child: Text(widget.text,
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 18,

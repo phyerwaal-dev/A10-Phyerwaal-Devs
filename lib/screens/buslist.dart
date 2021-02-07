@@ -1,4 +1,5 @@
 import 'package:busapp/screens/bookticket.dart';
+import 'package:busapp/screens/busdata.dart';
 import 'package:flutter/material.dart';
 
 class BusList extends StatefulWidget {
@@ -39,7 +40,7 @@ class _BusListState extends State<BusList> {
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => BookTicket(),
+                    builder: (context) => BusData(),
                   ));
                 },
                 child: Container(

@@ -15,7 +15,6 @@ class _BusInfoState extends State<BusInfo> {
   double positionLat, positionLong;
   LatLng _center;
   @override
-
   Completer<GoogleMapController> _controller = Completer();
   MapType _currentMapType = MapType.normal;
 
@@ -46,7 +45,6 @@ class _BusInfoState extends State<BusInfo> {
                   text: "Location",
                   iconBgColor: Colors.purple,
                 ),
-
                 LocationCard(
                   size: size,
                   leadingIcon: Icons.location_pin,
@@ -56,7 +54,6 @@ class _BusInfoState extends State<BusInfo> {
                 SizedBox(
                   height: 20,
                 ),
-
                 SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
