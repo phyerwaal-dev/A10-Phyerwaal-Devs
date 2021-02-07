@@ -184,9 +184,9 @@ AlertDialog alert = AlertDialog(
   content: ListView.builder(itemBuilder: null),
 );
 
-void startLoc(BuildContext context) {
-  showDialog(context: context, builder: (BuildContext context))
-}
+// void startLoc(BuildContext context) {
+//   showDialog(context: context, builder: (BuildContext context))
+// }
 
 class LocationCard extends StatelessWidget {
   const LocationCard({
