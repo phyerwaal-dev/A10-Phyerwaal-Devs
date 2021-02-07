@@ -17,6 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _password = new TextEditingController();
 
   validate() async {
+    print("HELLO");
     var email = _email.text;
     bool _isEmailValid = RegExp(
             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -38,6 +39,10 @@ class _LoginPageState extends State<LoginPage> {
     print(data);
     var result = await httpPost("api/v1/user/auth/signin", data);
     print(result);
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) =>
+          result["status"] == 200 ? Homepage() : ConductorHome(),
+    ));
   }
 
   @override
@@ -141,10 +146,10 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => Homepage(),
-                      ));
-                      // validate();
+                      //  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      //    builder: (context) => Homepage(),
+                      // ));
+                      validate();
                     },
                     child: Container(
                       alignment: Alignment.center,

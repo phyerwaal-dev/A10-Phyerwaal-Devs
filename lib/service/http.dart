@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-const PROTOCOL = "http";
-const DOMAIN = "192.168.29.1:5000";
+const PROTOCOL = "https";
+const DOMAIN = "servo-bus-backend.herokuapp.com";
 
 Future httpPost(String route, [dynamic data]) async {
   var dataStr = jsonEncode(data);

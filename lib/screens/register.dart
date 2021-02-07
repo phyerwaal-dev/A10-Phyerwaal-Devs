@@ -8,6 +8,14 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   bool _isObscure = true;
+
+  // register(String email, String password) async {
+  //   var data = {"email": email.toString(), "password": password.toString()};
+  //   print(data);
+  //   var result = await httpPost("api/v1/user/auth", data);
+  //   print(result);
+  // }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -184,6 +192,8 @@ class _RegisterState extends State<Register> {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => LoginPage(),
                       ));
+
+                      //register();
                     },
                     child: Text(
                       "Already Registered? Login",
